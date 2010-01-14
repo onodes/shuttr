@@ -15,9 +15,21 @@ require 'mini_exiftool'
 #end
 
 
+def func(url)
+  
+  pp url
+  url = url[0]
+  system('wget '+ url)
+  pp File.split(url)[1]
+  photo = MiniExiftool.new(File.split(url)[1])
+  pp photo
+  shutter = photo['shuttercount']
+  pp shutter
+  return shutter
+end
+
 
 get '/name/*' do
-  data = params[:splat]
- # p File.split(data)[1] 
+  "#{func(params[:splat])}"
 end
 
